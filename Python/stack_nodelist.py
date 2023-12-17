@@ -2,15 +2,19 @@ from __future__ import annotations
 from typing import Optional, List, Any
 
 class Node:
-    def __init__(self, value:Any, rest:Optional[Node]):
+    def __init__(self, value:Any, next:Optional[Node]):
         self.value = value
         self.next = next
 
     def __eq__(self, other:object) -> bool:
-        pass
+        if isinstance(other, Node):
+            return (self.value == other.value and
+                    self.next == other.next)
+        else:
+            return False
 
-    def __repr__(self) -> str:  
-        pass
+    def __repr__(self) -> str:
+        return ("Node({!r}, {!r})".format(self.value, self.next))
 
 
 class Stack:
@@ -19,29 +23,44 @@ class Stack:
     def __init__(self, top: Optional[Node] = None):
         self.top = top
         self.num_items = 0
-        while top is not None:
+        current = top
+        while current is not None:
             self.num_items += 1
-            top = top.next
+            current = current.next
     
     def __eq__(self, other:object) -> bool:
-        pass
+        if isinstance(other, Stack):
+            return (self.top == other.top and
+                    self.num_items == other.num_items)
+        else:
+            return False
 
     def __repr__(self) -> str:
-        pass
+        return ("Stack({!r})".format(self.top))
 
     def is_empty(self) -> bool:
-        pass
+        return self.top is None
 
     def push(self, item:Any) -> None:
-        pass
+        temp = self.top
+        self.top = Node(item, Node)
+        self.top.next = temp
+        self.num_items += 1
 
     def pop(self) -> Any:
-        pass
+        if self.top is not None:
+            temp = self.top 
+            self.top = self.top.next
+            self.num_items -= 1
+            return temp.value
+        else:
+            raise IndexError("pop from empty stack")
 
     def peek(self) -> Any:
-        pass
+        if self.top is not None:
+            return self.top.value
+        else:
+            raise IndexError("peek from empty stack")
 
     def size(self) -> int:
-        pass
-
-    
+        return self.num_items
