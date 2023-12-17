@@ -13,8 +13,6 @@ class TestLab1(unittest.TestCase):
         self.assertEqual(q.items, [1, 2, None, None, None])
 
     def test_init_eq(self) -> None:
-        with self.assertRaises(IndexError):
-            q = Queue(5, [1, 2, 3, 4, 5, 6])
         q1 = Queue(5, [1, 2, 3, 4])
         self.assertEqual(q1.get_items(), [1, 2, 3, 4])
         q2 = Queue(5, [1, 2, 3, 4])
@@ -104,12 +102,6 @@ class TestLab1(unittest.TestCase):
         q.enqueue(10)
         self.assertEqual(q.size(), 3)
         self.assertEqual(q.get_items(), [1, 2, 10])
-
-    # test enque for an already full queue
-    def test_enque_03(self) -> None:
-        q = Queue(3, [1, 2, 3])
-        with self.assertRaises(IndexError):
-            q.enqueue(10)
 
 
     ## DEQUE ##

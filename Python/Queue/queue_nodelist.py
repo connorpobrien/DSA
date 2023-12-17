@@ -89,7 +89,7 @@ class Queue:
                 self.rear = self.rear.next
             
             temp = self.front
-            self.front = self.front.rest
+            self.front = self.front.next
             self.num_items -= 1
             return temp.value
     
